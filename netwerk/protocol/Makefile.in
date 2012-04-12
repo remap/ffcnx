@@ -53,6 +53,7 @@ PARALLEL_DIRS = \
   viewsource \
   websocket \
   wyciwyg \
+  ccnx \
   $(NULL)
 
 include $(topsrcdir)/config/rules.mk
