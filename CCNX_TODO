@@ -1,0 +1,9 @@
+
+-- Port from internal module to a portable plugin release
+
+-- Clean up memory
+
+-- It seems one thread (maybe the nsNDNTransportService) is still running after
+   page loading. Need to clean that
+
+
