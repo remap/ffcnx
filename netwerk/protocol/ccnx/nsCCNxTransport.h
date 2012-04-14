@@ -83,14 +83,14 @@ private:
   Mutex                            mLock;
   // connector to ccnd
   struct ccn                       *mCCNx;
-  struct ccn_fetch                 *mCCNxfetch;
-  struct ccn_charbuf               *mCCNxname;
-  struct ccn_charbuf               *mCCNxtmpl;
-  struct ccn_fetch_stream          *mCCNxstream;
+  struct ccn_fetch                 *mCCNxFetch;
+  struct ccn_charbuf               *mCCNxName;
+  struct ccn_charbuf               *mCCNxTmpl;
+  struct ccn_fetch_stream          *mCCNxStream;
 
   // mCCNx is closed when mFDref goes to zero
-  nsrefcnt                          mCCNxref;
-  bool                              mCCNxonline;
+  nsrefcnt                          mCCNxRef;
+  bool                              mCCNxOnline;
   bool                              mInputClosed;
 
   nsCCNxInputStream                 mInput;

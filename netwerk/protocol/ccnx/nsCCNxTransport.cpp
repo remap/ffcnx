@@ -55,12 +55,12 @@ NS_IMPL_THREADSAFE_ISUPPORTS1(nsCCNxTransport,
 nsCCNxTransport::nsCCNxTransport()
     : mLock("nsCCNxTransport.mLock"),
       mCCNx(nsnull),
-      mCCNxfetch(nsnull),
-      mCCNxname(nsnull),
-      mCCNxtmpl(nsnull),
-      mCCNxstream(nsnull),
-      mCCNxref(0),
-      mCCNxonline(false),
+      mCCNxFetch(nsnull),
+      mCCNxName(nsnull),
+      mCCNxTmpl(nsnull),
+      mCCNxStream(nsnull),
+      mCCNxRef(0),
+      mCCNxOnline(false),
       mInputClosed(true),
       mInput(this) {
 
@@ -88,19 +88,19 @@ nsCCNxTransport::Init(const char *ndnName) {
   }
 
   // create name buffer
-  mCCNxname = ccn_charbuf_create();
-  mCCNxname->length = 0;
-  res = ccn_name_from_uri(mCCNxname, ndnName);
+  mCCNxName = ccn_charbuf_create();
+  mCCNxName->length = 0;
+  res = ccn_name_from_uri(mCCNxName, ndnName);
   if (res < 0) {
     ccn_destroy(&mCCNx);
-    ccn_charbuf_destroy(&mCCNxname);
+    ccn_charbuf_destroy(&mCCNxName);
     return NS_ERROR_CCND_INVALID_NAME;
   }
 
   // initialize ccn fetch
-  mCCNxfetch = ccn_fetch_new(mCCNx);
+  mCCNxFetch = ccn_fetch_new(mCCNx);
 
-  // initialize interest template (mCCNxtmpl)
+  // initialize interest template (mCCNxTmpl)
   CCNX_MakeTemplate(0);
 
   // initialize ccn stream
@@ -108,10 +108,10 @@ nsCCNxTransport::Init(const char *ndnName) {
   // copied from ccnwget
   // maxBufs = 4
   // assumeFixed = 0
-  mCCNxstream = ccn_fetch_open(mCCNxfetch, mCCNxname, ndnName, 
-                               mCCNxtmpl, 4, CCN_V_HIGHEST, 0);
+  mCCNxStream = ccn_fetch_open(mCCNxFetch, mCCNxName, ndnName, 
+                               mCCNxTmpl, 4, CCN_V_HIGHEST, 0);
 
-  mCCNxonline = true;
+  mCCNxOnline = true;
   return NS_OK;
 }
 
@@ -184,30 +184,30 @@ nsCCNxTransport::SetEventSink(nsITransportEventSink *sink,
 
 void 
 nsCCNxTransport::CCNX_MakeTemplate(int allow_stale) {
-  mCCNxtmpl = ccn_charbuf_create();
-  ccn_charbuf_append_tt(mCCNxtmpl, CCN_DTAG_Interest, CCN_DTAG);
-  ccn_charbuf_append_tt(mCCNxtmpl, CCN_DTAG_Name, CCN_DTAG);
-  ccn_charbuf_append_closer(mCCNxtmpl); /* </Name> */
+  mCCNxTmpl = ccn_charbuf_create();
+  ccn_charbuf_append_tt(mCCNxTmpl, CCN_DTAG_Interest, CCN_DTAG);
+  ccn_charbuf_append_tt(mCCNxTmpl, CCN_DTAG_Name, CCN_DTAG);
+  ccn_charbuf_append_closer(mCCNxTmpl); /* </Name> */
   // XXX - use pubid if possible
-  ccn_charbuf_append_tt(mCCNxtmpl, CCN_DTAG_MaxSuffixComponents, CCN_DTAG);
-  ccnb_append_number(mCCNxtmpl, 1);
-  ccn_charbuf_append_closer(mCCNxtmpl); /* </MaxSuffixComponents> */
+  ccn_charbuf_append_tt(mCCNxTmpl, CCN_DTAG_MaxSuffixComponents, CCN_DTAG);
+  ccnb_append_number(mCCNxTmpl, 1);
+  ccn_charbuf_append_closer(mCCNxTmpl); /* </MaxSuffixComponents> */
   if (allow_stale) {
-    ccn_charbuf_append_tt(mCCNxtmpl, CCN_DTAG_AnswerOriginKind, CCN_DTAG);
-    ccnb_append_number(mCCNxtmpl, CCN_AOK_DEFAULT | CCN_AOK_STALE);
-    ccn_charbuf_append_closer(mCCNxtmpl); /* </AnswerOriginKind> */
+    ccn_charbuf_append_tt(mCCNxTmpl, CCN_DTAG_AnswerOriginKind, CCN_DTAG);
+    ccnb_append_number(mCCNxTmpl, CCN_AOK_DEFAULT | CCN_AOK_STALE);
+    ccn_charbuf_append_closer(mCCNxTmpl); /* </AnswerOriginKind> */
   }
-  ccn_charbuf_append_closer(mCCNxtmpl); /* </Interest> */
+  ccn_charbuf_append_closer(mCCNxTmpl); /* </Interest> */
 }
 
 void
 nsCCNxTransport::CCNX_Close() {
-  // XXX what if mCCNxstream has not been initialized yet?
-  mCCNxstream = ccn_fetch_close(mCCNxstream);
-  mCCNxfetch = ccn_fetch_destroy(mCCNxfetch);
+  // XXX what if mCCNxStream has not been initialized yet?
+  mCCNxStream = ccn_fetch_close(mCCNxStream);
+  mCCNxFetch = ccn_fetch_destroy(mCCNxFetch);
   ccn_destroy(&mCCNx);
-  ccn_charbuf_destroy(&mCCNxname);
-  ccn_charbuf_destroy(&mCCNxtmpl);
+  ccn_charbuf_destroy(&mCCNxName);
+  ccn_charbuf_destroy(&mCCNxTmpl);
 
   // TODO put the 'mInputClosed' into the right place
   mInputClosed = true;
@@ -216,20 +216,20 @@ nsCCNxTransport::CCNX_Close() {
 struct ccn_fetch_stream*
 nsCCNxTransport::CCNX_GetLocked() {
   // mCCNx is not available to the streams while it's not oneline
-  if (!mCCNxonline)
+  if (!mCCNxOnline)
     return nsnull;
 
-  if (mCCNxstream)
-    mCCNxref++;
+  if (mCCNxStream)
+    mCCNxRef++;
 
-  return mCCNxstream;
+  return mCCNxStream;
 }
 
 void
 nsCCNxTransport::CCNX_ReleaseLocked(struct ccn_fetch_stream *ccnfs) {
-  NS_ASSERTION(mCCNxstream == ccnfs, "wrong ndn");
+  NS_ASSERTION(mCCNxStream == ccnfs, "wrong ndn");
 
-  if (--mCCNxref == 0) {
+  if (--mCCNxRef == 0) {
     // close ndn here
     CCNX_Close();
   }
