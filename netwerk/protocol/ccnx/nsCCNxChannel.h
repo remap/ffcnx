@@ -20,6 +20,8 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
+ *   Doug Turner <dougt@meer.net> (original author)
+ *   Darin Fisher <darin@meer.net>
  *   Jiwen Cai <jwcai@cs.ucla.edu>
  *
  * Alternatively, the contents of this file may be used under the terms of
