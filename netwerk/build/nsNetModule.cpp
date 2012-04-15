@@ -933,6 +933,10 @@ static const mozilla::Module::CIDEntry kNeckoCIDs[] = {
 #ifdef NECKO_PROTOCOL_wyciwyg
     { &kNS_WYCIWYGPROTOCOLHANDLER_CID, false, NULL, nsWyciwygProtocolHandlerConstructor },
 #endif
+    // CCNxProtocol
+#ifdef NECKO_PROTOCOL_ccnx
+    { &kNS_CCNX_HANDLER_CID, false, NULL, nsCCNxProtocolHandlerConstructor },
+#endif
 #ifdef NECKO_PROTOCOL_websocket
     { &kNS_WEBSOCKETPROTOCOLHANDLER_CID, false, NULL,
       mozilla::net::WebSocketChannelConstructor },
