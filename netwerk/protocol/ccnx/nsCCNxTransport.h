@@ -66,7 +66,7 @@ public:
 
   // this method instructs the CCNx transport to open a transport of a
   // given type(s) to the given name
-  nsresult Init(const char *ndnName);
+  nsresult Init(const char *ccnxName);
 
 private:
 
@@ -80,7 +80,7 @@ private:
 
 private:
 
-  Mutex                            mLock;
+  Mutex                             mLock;
   // connector to ccnd
   struct ccn                       *mCCNx;
   struct ccn_fetch                 *mCCNxFetch;

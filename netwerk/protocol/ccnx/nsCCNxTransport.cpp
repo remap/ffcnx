@@ -73,7 +73,7 @@ nsCCNxTransport::~nsCCNxTransport() {
 }
 
 nsresult
-nsCCNxTransport::Init(const char *ndnName) {
+nsCCNxTransport::Init(const char *ccnxName) {
   // the current implementation only allows one ccn name
   int res;
   mService = new nsCCNxTransportService();
@@ -84,17 +84,17 @@ nsCCNxTransport::Init(const char *ndnName) {
   res = ccn_connect(mCCNx, NULL);
   if (res < 0) {
     ccn_destroy(&mCCNx);
-    return NS_ERROR_CCND_UNAVAIL;
+    return NS_ERROR_CCNX_UNAVAIL;
   }
 
   // create name buffer
   mCCNxName = ccn_charbuf_create();
   mCCNxName->length = 0;
-  res = ccn_name_from_uri(mCCNxName, ndnName);
+  res = ccn_name_from_uri(mCCNxName, ccnxName);
   if (res < 0) {
     ccn_destroy(&mCCNx);
     ccn_charbuf_destroy(&mCCNxName);
-    return NS_ERROR_CCND_INVALID_NAME;
+    return NS_ERROR_CCNX_INVALID_NAME;
   }
 
   // initialize ccn fetch
@@ -108,7 +108,7 @@ nsCCNxTransport::Init(const char *ndnName) {
   // copied from ccnwget
   // maxBufs = 4
   // assumeFixed = 0
-  mCCNxStream = ccn_fetch_open(mCCNxFetch, mCCNxName, ndnName, 
+  mCCNxStream = ccn_fetch_open(mCCNxFetch, mCCNxName, ccnxName, 
                                mCCNxTmpl, 4, CCN_V_HIGHEST, 0);
 
   mCCNxOnline = true;
@@ -132,7 +132,9 @@ nsCCNxTransport::OpenInputStream(PRUint32 flags,
     bool openBlocking = (flags & OPEN_BLOCKING);
 
     net_ResolveSegmentParams(segsize, segcount);
-    nsIMemory *segalloc = net_GetSegmentAlloc(segsize);
+    // currently, we only use system allocator
+    // nsIMemory *segalloc = net_GetSegmentAlloc(segsize);
+    nsIMemory *segalloc = nsnull;
 
     // create a pipe
     nsCOMPtr<nsIAsyncOutputStream> pipeOut;

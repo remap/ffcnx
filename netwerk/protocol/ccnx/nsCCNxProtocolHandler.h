@@ -49,7 +49,7 @@ public:
   nsCCNxProtocolHandler();
   NS_DECL_ISUPPORTS
   NS_DECL_NSIPROTOCOLHANDLER
-  NS_DECL_NSIYPROTOCOLHANDLER
+  NS_DECL_NSICCNXPROTOCOLHANDLER
 
   nsresult Init();
   //  static NS_METHOD Create(nsISupports* aOuter, const nsIID& aIID, void* *aResult);

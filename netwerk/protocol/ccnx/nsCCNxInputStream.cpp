@@ -160,7 +160,7 @@ nsCCNxInputStream::Read(char *buf, PRUint32 count, PRUint32 *countRead) {
     mTransport->CCNX_ReleaseLocked(ccnfs);
   }
 
-  mCondition = ErrorAccordingToCCND(res);
+  mCondition = ErrorAccordingToCCNX(res);
   mByteCount = *countRead;
   rv = mCondition;
   LOG(("nsCCNxInputStream::Read %d", mByteCount));
