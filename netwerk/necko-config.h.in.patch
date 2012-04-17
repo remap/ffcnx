@@ -1,0 +1,11 @@
+diff --git a/netwerk/necko-config.h.in b/netwerk/necko-config.h.in
+index dd8cb21..f619fb0 100644
+--- a/netwerk/necko-config.h.in
++++ b/netwerk/necko-config.h.in
+@@ -51,5 +51,6 @@
+ #undef NECKO_PROTOCOL_viewsource
+ #undef NECKO_PROTOCOL_websocket
+ #undef NECKO_PROTOCOL_wyciwyg
++#undef NECKO_PROTOCOL_ccnx
+ 
+ #endif
