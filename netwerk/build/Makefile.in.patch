@@ -1,0 +1,13 @@
+diff --git a/netwerk/build/Makefile.in b/netwerk/build/Makefile.in
+index 2843a0e..8531c46 100644
+--- a/netwerk/build/Makefile.in
++++ b/netwerk/build/Makefile.in
+@@ -54,6 +54,8 @@ CPPSRCS = nsNetModule.cpp
+ EXPORTS = nsNetCID.h
+ 
+ SHARED_LIBRARY_LIBS = \
++  $(DIST)/lib/$(LIB_PREFIX)ccn.$(LIB_SUFFIX) \
++  $(DIST)/lib/$(LIB_PREFIX)crypto.$(LIB_SUFFIX) \
+   ../base/src/$(LIB_PREFIX)neckobase_s.$(LIB_SUFFIX) \
+   ../dns/$(LIB_PREFIX)neckodns_s.$(LIB_SUFFIX) \
+   ../socket/$(LIB_PREFIX)neckosocket_s.$(LIB_SUFFIX) \

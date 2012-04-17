@@ -1,0 +1,18 @@
+diff --git a/netwerk/build/nsNetCID.h b/netwerk/build/nsNetCID.h
+index 4413b91..2306707 100644
+--- a/netwerk/build/nsNetCID.h
++++ b/netwerk/build/nsNetCID.h
+@@ -1063,4 +1063,13 @@
+  */
+ #define NS_NSS_ERRORS_SERVICE_CONTRACTID "@mozilla.org/nss_errors_service;1"
+ 
++/**
++ * contract ID of the ccnx protocol handler
++ */
++#define NS_CCNX_PROTOCOLHANDLER_CLASSNAME       \
++    "nsCCNxProtocolHandler"
++#define NS_CCNX_HANDLER_CID                             \
++  { 0xf4a4b2d0, 0x3719, 0x11e1,                         \
++      {0xb8, 0x6c, 0x08, 0x00, 0x20, 0x0c, 0x9a, 0x66} }
++
+ #endif // nsNetCID_h__

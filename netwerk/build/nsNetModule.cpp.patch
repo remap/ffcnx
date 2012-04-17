@@ -1,0 +1,44 @@
+diff --git a/netwerk/build/nsNetModule.cpp b/netwerk/build/nsNetModule.cpp
+index d7aadc0..e22957a 100644
+--- a/netwerk/build/nsNetModule.cpp
++++ b/netwerk/build/nsNetModule.cpp
+@@ -261,6 +261,10 @@ NS_GENERIC_FACTORY_CONSTRUCTOR_INIT(nsResProtocolHandler, Init)
+ NS_GENERIC_FACTORY_CONSTRUCTOR(nsResURL)
+ #endif
+ 
++// CCNxProtocol
++#include "nsCCNxProtocolHandler.h"
++NS_GENERIC_FACTORY_CONSTRUCTOR_INIT(nsCCNxProtocolHandler, Init)
++
+ #ifdef NECKO_PROTOCOL_device
+ #include "nsDeviceProtocolHandler.h"
+ NS_GENERIC_FACTORY_CONSTRUCTOR(nsDeviceProtocolHandler)
+@@ -793,6 +797,8 @@ NS_DEFINE_NAMED_CID(NS_VIEWSOURCEHANDLER_CID);
+ #ifdef NECKO_PROTOCOL_wyciwyg
+ NS_DEFINE_NAMED_CID(NS_WYCIWYGPROTOCOLHANDLER_CID);
+ #endif
++// CCNxProtocol
++NS_DEFINE_NAMED_CID(NS_CCNX_HANDLER_CID);
+ #ifdef NECKO_PROTOCOL_websocket
+ NS_DEFINE_NAMED_CID(NS_WEBSOCKETPROTOCOLHANDLER_CID);
+ NS_DEFINE_NAMED_CID(NS_WEBSOCKETSSLPROTOCOLHANDLER_CID);
+@@ -927,6 +933,10 @@ static const mozilla::Module::CIDEntry kNeckoCIDs[] = {
+ #ifdef NECKO_PROTOCOL_wyciwyg
+     { &kNS_WYCIWYGPROTOCOLHANDLER_CID, false, NULL, nsWyciwygProtocolHandlerConstructor },
+ #endif
++    // CCNxProtocol
++#ifdef NECKO_PROTOCOL_ccnx
++    { &kNS_CCNX_HANDLER_CID, false, NULL, nsCCNxProtocolHandlerConstructor },
++#endif
+ #ifdef NECKO_PROTOCOL_websocket
+     { &kNS_WEBSOCKETPROTOCOLHANDLER_CID, false, NULL,
+       mozilla::net::WebSocketChannelConstructor },
+@@ -1074,6 +1084,8 @@ static const mozilla::Module::ContractIDEntry kNeckoContracts[] = {
+     { NS_NETWORK_PROTOCOL_CONTRACTID_PREFIX "ws", &kNS_WEBSOCKETPROTOCOLHANDLER_CID },
+     { NS_NETWORK_PROTOCOL_CONTRACTID_PREFIX "wss", &kNS_WEBSOCKETSSLPROTOCOLHANDLER_CID },
+ #endif
++    // CCNxProtocol
++    { NS_NETWORK_PROTOCOL_CONTRACTID_PREFIX "ccnx", &kNS_CCNX_HANDLER_CID },
+ #if defined(XP_WIN)
+     { NS_NETWORK_LINK_SERVICE_CONTRACTID, &kNS_NETWORK_LINK_SERVICE_CID },
+ #elif defined(MOZ_WIDGET_COCOA)
