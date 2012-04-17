@@ -6,3 +6,10 @@
 
 -- USAGE --
 
+-- TROUBLESHOOTING --
+
+* Got some error related to 'moz_free' in some Linux distribution
+
+The problem might come from the crashreport. A simple walkaround is to disable
+crashreport. Add a line 'ac_add_options --disable-crashreporter' into the
+.mozconfig file.

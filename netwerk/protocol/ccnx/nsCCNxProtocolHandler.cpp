@@ -125,7 +125,7 @@ NS_IMETHODIMP nsCCNxProtocolHandler::NewURI(const nsACString & aSpec,
                                             nsIURI *aBaseURI,
                                             nsIURI * *result) {
   nsresult rv;
-  NS_ASSERTION(!aBaseURI, "base url passed into finger protocol handler");
+  NS_ASSERTION(!aBaseURI, "Base URL passed into CCNx Protocol");
   nsStandardURL* url = new nsStandardURL();
   if (!url)
     return NS_ERROR_OUT_OF_MEMORY;
