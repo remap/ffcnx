@@ -1,0 +1,13 @@
+diff --git a/configure.in b/configure.in
+index 3aced51..a6950a8 100644
+--- a/configure.in
++++ b/configure.in
+@@ -4548,7 +4548,7 @@ MOZ_DISABLE_DOMCRYPTO=
+ NSS_DISABLE_DBM=
+ NECKO_WIFI=1
+ NECKO_COOKIES=1
+-NECKO_PROTOCOLS_DEFAULT="about data file ftp http res viewsource websocket wyciwyg device"
++NECKO_PROTOCOLS_DEFAULT="about data file ftp http res viewsource websocket wyciwyg device ccnx"
+ USE_ARM_KUSER=
+ BUILD_CTYPES=1
+ MOZ_USE_NATIVE_POPUP_WINDOWS=
