@@ -1,12 +1,24 @@
--- README --
+## README ##
 
 
--- BUILD --
+## BUILD ##
 
+* Build official version of Firefox
 
--- USAGE --
+Make sure that you can build Firefox out of box. The following links might
+be useful:
 
--- TROUBLESHOOTING --
+** Build documentation for Mozilla
+https://developer.mozilla.org/en/Build_Documentation
+Inside this document, you might want to look into the build prerequisities
+according to the system your are working on.
+
+** Simple Firefox build tutorial
+https://developer.mozilla.org/En/Simple_Firefox_build
+
+## USAGE ##
+
+## TROUBLESHOOTING ##
 
 * Got some error related to 'moz_free' in some Linux distribution
 
