@@ -21,23 +21,26 @@ https://developer.mozilla.org/En/Simple_Firefox_build
 ### Install the CCNx browser patch
 * Merge the git repository into the current Firefox code base
 
-    $ cd mozilla_central
-    $ git clone --no-checkout git://github.com/goodcjw/ffccnx.git
-    $ mv ffccnx/.git .
-    $ rm -rf ffccnx
-    $ git reset --hard HEAD
+    cd mozilla_central
+    git clone --no-checkout git://github.com/goodcjw/ffccnx.git
+    mv ffccnx/.git .
+    rm -rf ffccnx
+    git reset --hard HEAD
+
 
 NOTE: mozilla_central is the home directory of your Firefox repository
 
 * Apply patches
 
-    $ ./applyccnx.sh
+    ./applyccnx.sh
+
 
 * Liking against libccn.a and libcrypto.a
 
-    $ cd obj-fx-dbg/dist/lib
-    $ ln -s /usr/local/lib/libccn.a libccn.a
-    $ ln -s /usr/lib/libcrypto.a libcrypto.a
+    cd obj-fx-dbg/dist/lib
+    ln -s /usr/local/lib/libccn.a libccn.a
+    ln -s /usr/lib/libcrypto.a libcrypto.a
+
 
 NOTE: 
 `obj-fx-dbg` is your Firefox building output directory you set in
