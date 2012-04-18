@@ -3,21 +3,21 @@
 
 ## BUILD ##
 
-* Build official version of Firefox
+### Build official version of Firefox
 
 Make sure that you can build Firefox out of box. The following links might
 be useful:
 
-### Build documentation for Mozilla
+* Build documentation for Mozilla
 https://developer.mozilla.org/en/Build_Documentation
 Inside this document, you might want to look into the build prerequisities
 according to the system your are working on.
 
-### Simple Firefox build tutorial
+* Simple Firefox build tutorial
 https://developer.mozilla.org/En/Simple_Firefox_build
 
-* Install the CCNx browser patch
-### Merge the git repository into the current Firefox code base
+### Install the CCNx browser patch
+* Merge the git repository into the current Firefox code base
 $ cd mozilla_central
 $ git clone --no-checkout git://github.com/goodcjw/ffccnx.git
 $ mv ffccnx/.git .
@@ -25,10 +25,10 @@ $ rm -rf ffccnx
 $ git reset --hard HEAD
 NOTE: mozilla_central is the home directory of your Firefox repository
 
-### Apply patches
+* Apply patches
 $ ./applyccnx.sh
 
-### Liking against libccn.a and libcrypto.a
+* Liking against libccn.a and libcrypto.a
 $ cd obj-fx-dbg/dist/lib
 $ ln -s /usr/local/lib/libccn.a libccn.a
 $ ln -s /usr/lib/libcrypto.a libcrypto.a
