@@ -72,9 +72,9 @@ PRLogModuleInfo* gCCNxLog = nsnull;
 nsCCNxProtocolHandler* gCCNxHandler = nsnull;
 
 NS_IMPL_CLASSINFO(nsCCNxProtocolHandler, NULL, 0, NS_CCNX_HANDLER_CID)
-NS_IMPL_ISUPPORTS2(nsCCNxProtocolHandler,
-                   nsIProtocolHandler,
-                   nsICCNxProtocolHandler);
+NS_IMPL_ISUPPORTS2_CI(nsCCNxProtocolHandler,
+                      nsIProtocolHandler,
+                      nsICCNxProtocolHandler);
 
 nsCCNxProtocolHandler::nsCCNxProtocolHandler() {
 #if defined(PR_LOGGING)
